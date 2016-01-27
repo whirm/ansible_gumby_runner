@@ -1,0 +1,20 @@
+---
+# tasks file for whirm.gumby_runner
+
+# TODO: clean up the dependencies
+
+- name: Installs Gumby dependencies
+  action: apt pkg="{{item}}" state=present
+  with_items:
+    - python-configobj
+    - python-pip
+    - python-psutil
+    - python-twisted
+    - python-twisted-bin-dbg
+    - python-virtualenv
+    - python-zope.interface-dbg
+    - r-base
+
+- name: "Install diff-cover on gumby user's $HOME"
+  pip: name=plyvel extra_args="--user --upgrade"
+  remote_user: "{{gumby_user}}"
